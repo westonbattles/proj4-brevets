@@ -1,5 +1,5 @@
 FROM python:3
-MAINTAINER Ram Durairajan "noemail@website.domain"
+MAINTAINER Weston Battles "wbattles@uoregon.edu"
 RUN apt-get update -y
 RUN apt-get install -y python3-pip python3-dev build-essential
 COPY . /app
