@@ -1,3 +1,4 @@
 /brevets/credentials.ini
 /brevets/__pycache__
 /brevets/run.sh
+.DS_Store
