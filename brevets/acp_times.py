@@ -59,7 +59,23 @@ def close_time(control_dist_km, brevet_dist_km, brevet_start_time):
        This will be in the same time zone as the brevet start time.
     """
 
-    if control_dist_km == 0: return arrow.get(brevet_start_time).shift(hours=1).isoformat()
+    start = arrow.get(brevet_start_time)
+
+    # french variation (controls from 0-60 are based on 20km/h (3km/min))
+    if 0 <= control_dist_km < 60:
+        minutes = round(control_dist_km * 3 + 60)
+        return start.shift(minutes=minutes).isoformat()
+
+    # time limits given by https://rusa.org/pages/rulesForRiders?utm_source=chatgpt.com#:~:text=ACP%20Finishing%20Time%20LImits
+    if control_dist_km >= brevet_dist_km:
+        limits = {
+            200: 810,
+            300: 1200,
+            400: 1620,
+            600: 2400,
+            1000: 4500
+        }
+        return start.shift(minutes=limits[brevet_dist_km]).isoformat()
 
     return calculate_time(control_dist_km, brevet_dist_km, brevet_start_time, 0)
 
