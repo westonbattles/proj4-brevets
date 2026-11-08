@@ -164,6 +164,13 @@
 
       $('input[name="miles"]').change(
          function() {
+            // allow deletions
+            if ($(this).val() === "") {
+                var control_entry = $(this).parents(".control");
+                control_entry.find("input[name='miles'], input[name='km'], input[name='open'], input[name='close']").val("");
+                return;
+            }
+
              var miles = parseFloat($(this).val());
              var km = (1.609344 * miles).toFixed(1) ;
              console.log("Converted " + miles + " miles to " + km + " kilometers");
@@ -176,6 +183,12 @@
 
       $('input[name="km"]').change(
          function() {
+            // allow deletions
+            if ($(this).val() === "") {
+                var control_entry = $(this).parents(".control");
+                control_entry.find("input[name='miles'], input[name='km'], input[name='open'], input[name='close']").val("");
+                return;
+            }
              var km = parseFloat($(this).val());
              var miles = (0.621371 * km).toFixed(1) ;
              console.log("Converted " + km + " km to " + miles + " miles");
